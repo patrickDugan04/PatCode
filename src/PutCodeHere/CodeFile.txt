@@ -1,0 +1,2 @@
+{Displayln}(txt)[hello world];
+*End*
