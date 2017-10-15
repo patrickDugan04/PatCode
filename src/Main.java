@@ -24,11 +24,13 @@ public class Main {
 	static Boolean pramT = false;
 	static Boolean pramO = false;
 	static HashMap var = new HashMap();
-	static char[] code;		
+	static char[] code;
+
 	public static void main(String[] args) {
 		System.out.println("what file would you like to run");
 		codeFileName = scan.nextLine();
-		Scanner file = new Scanner(Main.class.getResourceAsStream("./PutCodeHere/" + codeFileName));//<-- Path to code file
+		Scanner file = new Scanner(Main.class.getResourceAsStream("./PutCodeHere/" + codeFileName));// <-- Path to code
+																									// file
 		// TODO Auto-generated method stub
 		while (!in.equals("*End*")) {
 			in = file.nextLine();
@@ -187,7 +189,7 @@ public class Main {
 			}
 		} else if (commandType.equals("Scan")) {
 			var.put(pramThree, scan.nextLine());
-		}else if (commandType.equals("ScanClose")) {
+		} else if (commandType.equals("ScanClose")) {
 			scan.close();
 		}
 

@@ -18,3 +18,12 @@ Math commands
 
 {Divide}(valueOne)[valueTwo]<variable>; divides the two values then puts the answer in the chosen variable
 
+logic commands
+
+{If}(valueOne)[valueTwo]^Code: if valueOne equals valueTwo it runs the Code in between ^ and :
+
+userInput commands
+
+{Scan}<variable>; will wait until user types something in and then presses enter it will put what the user typed in into the variable 
+
+{ScanClose} will close all the scanner use when you are dont useing Scan it will make the rest of the code run faster
