@@ -27,3 +27,6 @@ userInput commands
 {Scan}<variable>; will wait until user types something in and then presses enter it will put what the user typed in into the variable 
 
 {ScanClose} will close all the scanner use when you are dont useing Scan it will make the rest of the code run faster
+
+misc commands
+*End* you must put this at the end of your code to mark the end of your code
