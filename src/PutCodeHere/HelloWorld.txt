@@ -1,2 +1,12 @@
-{Displayln}(txt)[hello world];
+{Var}(count)[0];
+{Displayln}(txt)[how many times will it HelloWorld];
+{Scan}\loopCount/;
+{SetWarp}\countLoop/;
+{Add}(1)[count]\count/;
+{Display}(txt)[HelloWorld for the ];
+{Display}(var)[count];
+{Displayln}(txt)[th time];
+{If}(count)[loopCount]\</^
+	{Warp}\countLoop/;
+:
 *End*

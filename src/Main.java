@@ -23,7 +23,10 @@ public class Main {
 	static Boolean pramTh = false;
 	static Boolean pramT = false;
 	static Boolean pramO = false;
-	static HashMap var = new HashMap();
+	static HashMap<String, String> var = new HashMap();
+	static HashMap<String,Integer> warps = new HashMap();
+	static String ifOne;
+	static String ifTwo;
 	static char[] code;
 
 	public static void main(String[] args) {
@@ -58,7 +61,7 @@ public class Main {
 				pramT = true;
 			} else if (code[codePos] == '(') {
 				pramO = true;
-			} else if (code[codePos] == '<') {
+			} else if (code[codePos] == '\\') {
 				pramTh = true;
 			} else if (code[codePos] == ';' || code[codePos] == '^') {
 				commandEnd();
@@ -94,11 +97,12 @@ public class Main {
 		}
 		if (pramT) {
 			pramTwo = pramTwo + code[codePos];
+			
 		}
 	}
 
 	public static void pramThr(char[] code) {
-		if (code[codePos] == '>') {
+		if (code[codePos] == '/') {
 			pramTh = false;
 		}
 		if (pramTh) {
@@ -170,20 +174,33 @@ public class Main {
 			}
 			var.put(pramThree, Integer.toString(numO / numT));
 		} else if (commandType.equals("If")) {
-			if (!var.containsKey(pramOne) && !var.containsKey(pramTwo)) {
-				if (!pramOne.equals(pramTwo)) {
-					commandBlock = true;
-				}
+			if (!(var.containsKey(pramOne)) && !(var.containsKey(pramTwo))) {
+				ifOne = pramOne;
+				ifTwo = pramTwo;
 			} else if (var.containsKey(pramOne) && var.containsKey(pramTwo)) {
-				if (!var.get(pramOne).equals(var.get(pramTwo))) {
+				ifOne = (String) var.get(pramOne);
+				ifTwo = (String) var.get(pramTwo);
+			} else if (!(var.containsKey(pramOne)) && var.containsKey(pramTwo)) {
+				ifOne = pramOne;
+				ifTwo = (String) var.get(pramTwo);
+			} else if ((var.containsKey(pramOne)) && !(var.containsKey(pramTwo))) {
+				ifOne = (String) var.get(pramOne);
+				ifTwo = pramTwo;
+			}
+			if (pramThree.equals("=")) {
+				if (!(ifOne.equals(ifTwo))) {
 					commandBlock = true;
 				}
-			} else if (!var.containsKey(pramOne) && var.containsKey(pramTwo)) {
-				if (!pramOne.equals(var.get(pramTwo))) {
+			} else if (pramThree.equals("!")) {
+				if (ifOne.equals(ifTwo)) {
 					commandBlock = true;
 				}
-			} else if (var.containsKey(pramOne) && !var.containsKey(pramTwo)) {
-				if (!var.get(pramOne).equals(pramTwo)) {
+			} else if (pramThree.equals(">")) {
+				if (!(Integer.parseInt(ifOne) > Integer.parseInt(ifTwo))) {
+					commandBlock = true;
+				}
+			} else if (pramThree.equals("<")) {
+				if (!(Integer.parseInt(ifOne) < Integer.parseInt(ifTwo))) {
 					commandBlock = true;
 				}
 			}
@@ -191,6 +208,10 @@ public class Main {
 			var.put(pramThree, scan.nextLine());
 		} else if (commandType.equals("ScanClose")) {
 			scan.close();
+		} else if (commandType.equals("SetWarp")) {
+			warps.put(pramOne, (codePos) - 1);
+		} else if (commandType.equals("Warp")) {
+			codePos = (int) warps.get(pramOne);
 		}
 
 		commandType = "";
