@@ -24,7 +24,7 @@ public class Main {
 	static Boolean pramT = false;
 	static Boolean pramO = false;
 	static HashMap<String, String> var = new HashMap();
-	static HashMap<String,Integer> warps = new HashMap();
+	static HashMap<String, Integer> warps = new HashMap();
 	static String ifOne;
 	static String ifTwo;
 	static char[] code;
@@ -97,7 +97,7 @@ public class Main {
 		}
 		if (pramT) {
 			pramTwo = pramTwo + code[codePos];
-			
+
 		}
 	}
 
@@ -112,7 +112,12 @@ public class Main {
 
 	public static void commandEnd() {
 		if (commandType.equals("Var")) {
-			var.put(pramOne, pramTwo);
+			if (var.containsKey(pramTwo)) {
+				var.put(pramOne, var.get(pramTwo));
+
+			} else {
+				var.put(pramOne, pramTwo);
+			}
 		} else if (commandType.equals("Displayln")) {
 			if (pramOne.equals("var")) {
 				System.out.println(var.get(pramTwo));
@@ -212,8 +217,9 @@ public class Main {
 			warps.put(pramOne, (codePos) - 1);
 		} else if (commandType.equals("Warp")) {
 			codePos = (int) warps.get(pramOne);
+		} else if (commandType.equals("Rand")) {
+			var.put(pramThree, Integer.toString((int) (Math.random() * 100)));
 		}
-
 		commandType = "";
 		pramThree = "";
 		pramTwo = "";
