@@ -12,6 +12,9 @@ Basic commands
 {Displayln}(var is its displaying a variable txt if not)[variable or text to print]; 	displays text on a new line
 
 Math commands
+
+{Rand}<variable>; puts a variable between 1 and 100
+
 {Add}(valueOne)[valueTwo]<variable>; adds the two values then puts the answer in the chosen variable
 
 {Subtract}(valueOne)[valueTwo]<variable>; subtracts the two values then puts the answer in the chosen variable
