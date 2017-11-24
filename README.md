@@ -1,7 +1,7 @@
 Hi I am Patrick and this is pat code a code I made out of java for fun
 the commands are bellow
 if you want to add a file of code you wrote put two copes of it one in the PutCodeHere folder in src and the other one in the PutCodeHere folder in bin 
-to run the code you start op the program and it will ask you for your codes file so you will put in the file name and make sure toinclude the ending like .txt
+to run the code you start op the program and it will ask you for your codes file so you will put in the file name and make sure to include the ending like .txt also I recomentd downloading eclips to run 
 
 Basic commands
 
