@@ -3,7 +3,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -18,18 +20,25 @@ public class Main {
 	static int numO;
 	static int numT;
 	static Scanner scan = new Scanner(System.in);
-	static Boolean commandBlock = false; // used to block the if statements command if the if statement is false
+	static Boolean commandBlock = false;// used to block the if statements command if the if statement is false
+	static Boolean commandBlockFunc = false;
 	static Boolean commandTy = false;
 	static Boolean pramTh = false;
 	static Boolean pramT = false;
 	static Boolean pramO = false;
 	static HashMap<String, String> var = new HashMap();
 	static HashMap<String, Integer> warps = new HashMap();
+	static HashMap<String, Integer> funcs = new HashMap();
+	static HashMap<String, ArrayList<Integer>> funcJump = new HashMap();
+	static HashMap<String, Integer> funcJumpArrayPlace = new HashMap();
 	static String ifOne;
 	static String ifTwo;
+	static boolean funcScan;
+	static ArrayList<Integer> array = new ArrayList<Integer>();
 	static char[] code;
 
 	public static void main(String[] args) {
+		array.add(1);
 		System.out.println("what file would you like to run");
 		codeFileName = scan.nextLine();
 		Scanner file = new Scanner(Main.class.getResourceAsStream("./PutCodeHere/" + codeFileName));// <-- Path to code
@@ -45,13 +54,13 @@ public class Main {
 
 	public static void sifter(char[] code) {
 		while (codePos < code.length) {
-			if (commandTy && !commandBlock) {
+			if (commandTy && !commandBlock && !commandBlockFunc) {
 				commandPram(code);
-			} else if (pramO && !commandBlock) {
+			} else if (pramO && !commandBlock && !commandBlockFunc) {
 				pramOn(code);
-			} else if (pramT && !commandBlock) {
+			} else if (pramT && !commandBlock && !commandBlockFunc) {
 				pramTw(code);
-			} else if (pramTh && !commandBlock) {
+			} else if (pramTh && !commandBlock && !commandBlockFunc) {
 				pramThr(code);
 			}
 			if (code[codePos] == '{') {
@@ -66,6 +75,8 @@ public class Main {
 				commandEnd();
 			} else if (code[codePos] == ':') {
 				commandBlock = false;
+			} else if (code[codePos] == '*') {
+				commandBlockFunc = false;
 			}
 
 			codePos++;
@@ -218,6 +229,22 @@ public class Main {
 			codePos = (int) warps.get(pramOne);
 		} else if (commandType.equals("Rand")) {
 			var.put(pramThree, Integer.toString((int) (Math.floor(Math.random() * 100))));
+		} else if (commandType.equals("FunctionSet")) {
+			funcJump.put(pramOne,array);
+			funcs.put(pramOne, (codePos));
+			funcJumpArrayPlace.put(pramOne,0);
+			funcScan = true;
+			commandBlockFunc = true;
+		} else if (commandType.equals("FunctionEnd")) {
+			if (funcScan == false) {
+				codePos = funcJump.get(pramOne).get(funcJumpArrayPlace.get(pramOne));
+				funcJumpArrayPlace.put(pramOne, funcJumpArrayPlace.get(pramOne) - 1);
+			}
+			funcScan = false;
+		} else if (commandType.equals("FunctionJump")) {
+			funcJumpArrayPlace.put(pramOne, funcJumpArrayPlace.get(pramOne) + 1);
+			funcJump.get(pramOne).add(funcJumpArrayPlace.get(pramOne),codePos);
+			codePos = funcs.get(pramOne);
 		}
 		commandType = "";
 		pramThree = "";
