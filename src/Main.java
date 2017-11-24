@@ -34,7 +34,6 @@ public class Main {
 		codeFileName = scan.nextLine();
 		Scanner file = new Scanner(Main.class.getResourceAsStream("./PutCodeHere/" + codeFileName));// <-- Path to code
 																									// file
-		// TODO Auto-generated method stub
 		while (!in.equals("*End*")) {
 			in = file.nextLine();
 			inO = inO + in;
@@ -218,7 +217,7 @@ public class Main {
 		} else if (commandType.equals("Warp")) {
 			codePos = (int) warps.get(pramOne);
 		} else if (commandType.equals("Rand")) {
-			var.put(pramThree, Integer.toString((int) (Math.random() * 100)));
+			var.put(pramThree, Integer.toString((int) (Math.floor(Math.random() * 100))));
 		}
 		commandType = "";
 		pramThree = "";
